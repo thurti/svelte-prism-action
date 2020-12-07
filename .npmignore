@@ -1,0 +1,12 @@
+/node_modules/
+/cypress/
+/public/
+/src/components/
+/src/main.js
+/src/App.svelte
+
+.DS_Store
+.vscode
+rollup.config.js
+cypress.json
+jsconfig.json
