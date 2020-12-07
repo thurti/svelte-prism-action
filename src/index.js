@@ -1,0 +1,1 @@
+export {prism} from './actions/svelte-prism-action'

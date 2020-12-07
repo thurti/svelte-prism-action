@@ -1,0 +1,43 @@
+{
+  "name": "svelte-prism-action",
+  "version": "1.0.0",
+  "description": "Svelte action for lazy render code blocks with prism.js.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "start": "sirv public",
+    "test": "./node_modules/.bin/cypress run",
+    "cypress:open": "./node_modules/.bin/cypress open"
+  },
+  "keywords": [
+    "svelte",
+    "action",
+    "prism",
+    "prismjs"
+  ],
+  "author": "thurti",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thurti/svelte-prism-action"
+  },
+  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/thurti/svelte-prism-action/issues"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "cypress": "^6.0.1",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.0.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "sirv-cli": "^1.0.0"
+  },
+  "peerDependencies": {
+    "prismjs": "^1.0.0",
+    "svelte": "^3.31.0"
+  }
+}
