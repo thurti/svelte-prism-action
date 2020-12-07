@@ -23,11 +23,10 @@
 
   <p>For available language tags see <a href="https://prismjs.com/#supported-languages">https://prismjs.com/#supported-languages</a> .</p>
 
-  <p><b>HINT</b> If you are writing your codeblocks directly into a svelte component you need to escape some special characters (eg. curley brackets). Another way is to wrap the code inside <code>{`\{\`\`\}`}</code>.</p>
+  <p><b>HINT</b> If you are writing your codeblocks directly into a svelte component you need to <b>escape special characters</b> (eg. curley brackets). Another way is to wrap the code inside <code>{`\{\`\`\}`}</code>.</p>
 
   <pre><code class="lang-html">{`
 <script>
-  //import action
   import {prism} from "svelte-prism-action";
 </script>
 
@@ -45,10 +44,10 @@
   </p>
 
   <pre>
-    <code class="lang-css">
-      .bg-gold{
+    <code class="lang-css"> <!-- wrap inside \{\`\`\} if using inside svelte component-->
+      \{\`.bg-gold{
         background: gold;
-      }
+      }\`\}
     </code>
   </pre>
   
@@ -56,7 +55,7 @@
     Or use inline.
   </p>
 
-  <code class="lang-javascript">import {prism} from "svelte-prism-action";</code>
+  <code class="lang-javascript">\{\`import {prism} from "svelte-prism-action";\`\}</code>
 
 </main>
   `}

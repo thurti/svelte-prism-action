@@ -21,7 +21,7 @@ Import `prism` from `svelte-prism-action`. Add the action to a component with  `
 
 For available language tags see https://prismjs.com/#supported-languages .
 
-**HINT** If you are writing your codeblocks directly into a svelte component you need to escape some special characters (eg. curley brackets). Another way is to wrap the code inside `{``}`. 
+**HINT** If you are writing your codeblocks directly into a svelte component you need to **escape special characters** (eg. curley brackets). Another way is to wrap the code inside `{``}`. 
 
 ```html
 <script>
