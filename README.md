@@ -2,6 +2,8 @@
 
 [Svelte](https://svelte.dev) action for lazy loading [Prism.js](https://prismjs.com) code highlighting. 
 
+<big><a href="https://thurti.github.io/svelte-prism-action/public">Example Page</a></big>
+
 The action uses IntersectionObserver to dynamically render code highlighting. The prism.js language file gets lazy loaded when the `<code>` element gets visible in the viewport.
 
 ## Installation
