@@ -4,7 +4,7 @@
 
 <big><a href="https://thurti.github.io/svelte-prism-action/public">Example Page</a></big>
 
-The action uses IntersectionObserver to dynamically render code highlighting. The prism.js language file gets lazy loaded when the `<code>` element gets visible in the viewport.
+The action uses IntersectionObserver to dynamically render code highlighting. The prism.js language file is lazy loaded when the `<code>` element gets visible in the viewport.
 
 ## Installation
 
