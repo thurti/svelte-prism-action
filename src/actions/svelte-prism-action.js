@@ -73,7 +73,7 @@ export function prism(node, params) {
 
       if (language === 'markdown') { //get languages used inside markdown code blocks
         let additional = item.innerHTML.match(/(```)(\w+)/gm);
-        additional = additional.map(item => item.replace('```', ''));
+        additional = additional?.map(item => item.replace('```', '')) || [];
         languages = [...languages, ...additional];
       }
     }
