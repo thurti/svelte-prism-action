@@ -24,7 +24,7 @@ export const defaults = {
  * @param {string} params.componentsUrl = "https://unpkg.com/prismjs@1.22.0/components"
  */
 export function prism(node, params) {
-  //defaults
+  //merge params with defaults
   const options = {
     ...defaults,
     ...params,
@@ -45,7 +45,13 @@ export function prism(node, params) {
 
     for (const lang of langs) {
       const languages = getIds(lang); //get languages including dependencies
-      await runInSequence(languages, loadLanguageAsync); //load languages in order
+      
+      try {
+        await runInSequence(languages, loadLanguageAsync); //load languages in order
+      } catch (error) {
+        console.warn(error);
+      }
+
       Prism.highlightElement(target);
       target.dataset.isHighlighted = true;
     }
@@ -65,7 +71,7 @@ export function prism(node, params) {
     if (language) {
       languages.push(language);
 
-      if (language === 'markdown') { //get languages used inside markdown code block
+      if (language === 'markdown') { //get languages used inside markdown code blocks
         let additional = item.innerHTML.match(/(```)(\w+)/gm);
         additional = additional.map(item => item.replace('```', ''));
         languages = [...languages, ...additional];
@@ -128,14 +134,7 @@ export function prism(node, params) {
    * @param {string} lang 
    */
   function loadLanguageAsync(lang) {
-    try {
-      return import(`${options.componentsUrl}/prism-${lang}.min.js`);
-    } catch (error) {
-      console.warn(
-        `Couldn't import ${options.componentsUrl}/prism-${lang}.min.js.`,
-        `Maybe there is no ${lang} package. Or just a typo?`
-      );
-    }
+    return import(`${options.componentsUrl}/prism-${lang}.min.js`);
   }
 
   /**
