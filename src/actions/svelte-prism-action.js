@@ -4,6 +4,7 @@ Prism.manual = true;
 
 import { tick } from "svelte";
 import Prism from "prismjs/components/prism-core.min";
+import getLoader from "prismjs/dependencies";
 import components from "prismjs/components";
 
 export const defaults = {
@@ -87,23 +88,8 @@ export function prism(node, params) {
    * @return {array}
    */
   function getIds(lang) {
-    let ids = [];
-
-    for (const language in components.languages) {
-      const element = components.languages[language];
-
-      if (language === lang || element.alias?.includes(lang)) {
-        if (Array.isArray(element.require)) {
-          ids = [...ids, ...element.require];
-        } else if (typeof element.require === "string") {
-          ids.push(element.require);
-        }
-
-        ids.push(language);
-      }
-    }
-
-    return ids;
+    const loader = getLoader(components, [lang]);
+    return loader.getIds();
   }
 
   /**
