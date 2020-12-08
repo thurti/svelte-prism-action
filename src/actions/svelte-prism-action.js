@@ -4,7 +4,7 @@ Prism.manual = true;
 
 import { tick } from "svelte";
 import Prism from "prismjs/components/prism-core.min";
-import "prismjs/components/prism-clike.min";
+import components from "prismjs/components";
 
 export const defaults = {
   root: null,
@@ -37,29 +37,19 @@ export function prism(node, params) {
    * @param {DOMElement} target
    * @param {string} componentsUrl  URL to prism.js component folder.
    */
-  const highlightCode = async function (target, componentsUrl) {
+  const highlightCode = async function (target) {
     //abort if already highlighted
     if (target.dataset.isHighlighted) return;
 
     const lang = getLanguageFromClass(target);
 
     if (lang) {
-      if (!Prism.languages[lang]) {
-        //lazy load language file if not exist
-        try {
-          await import(`${componentsUrl}/prism-${lang}.min.js`);
-        } catch (error) {
-          console.error(
-            `Couldn't import ${componentsUrl}/prism-${lang}.min.js.`,
-            `Maybe there is no ${lang} package. Or just a typo?`
-          );
-        }
-      }
-
+      const languages = getIds(lang); //get languages to load including dependencies
+      await runInSequence(languages, loadLanguageAsync); //load language dependencies in order
       Prism.highlightElement(target);
       target.dataset.isHighlighted = true;
     }
-  }
+  };
 
   /**
    * Returns prism.js language name from class name. (eg. 'language-javascript')
@@ -69,13 +59,69 @@ export function prism(node, params) {
    */
   function getLanguageFromClass(item) {
     let lang = item.className.match(/[lang|language]-(\w+)/);
+    return lang ? lang[1] : false;
+  }
 
-    if (lang) {
-      lang = lang[1];
-      lang = lang.toLowerCase() === "html" ? "markup" : lang; //I always forgot this
-      return lang;
-    } else {
-      return false;
+  /**
+   * Returns array with language ids including dependency languages.
+   * @param {string} lang
+   * @return {array}
+   */
+  function getIds(lang) {
+    let ids = [];
+
+    for (const language in components.languages) {
+      const element = components.languages[language];
+
+      if (language === lang || element.alias?.includes(lang)) {
+        if (Array.isArray(element.require)) {
+          ids = [...ids, ...element.require];
+        } else if (typeof element.require === "string") {
+          ids.push(element.require);
+        }
+
+        ids.push(language);
+      }
+    }
+
+    return ids;
+  }
+
+  /**
+   * Callback task to run in sequence.
+   *
+   * @callback asyncCallback
+   * @param {*} param
+   */
+
+  /**
+   * Hax0r way of running async tasks in sequence.
+   * sequence is array with parameters for the callback function.
+   * @see https://jrsinclair.com/articles/2019/how-to-run-async-js-in-parallel-or-sequential/
+   *
+   * @param {array} sequence
+   * @param {asyncCallback} callback
+   */
+  async function runInSequence(sequence, callback) {
+    const starterPromise = Promise.resolve(null);
+    await sequence.reduce(
+      (p, param) => p.then(() => callback(param)),
+      starterPromise
+    );
+  }
+
+  /**
+   * Async load prism.js language file.
+   * @param {string} lang 
+   */
+  function loadLanguageAsync(lang) {
+    try {
+      return import(`${options.componentsUrl}/prism-${lang}.min.js`);
+    } catch (error) {
+      console.warn(
+        `Couldn't import ${options.componentsUrl}/prism-${lang}.min.js.`,
+        `Maybe there is no ${lang} package. Or just a typo?`
+      );
     }
   }
 
@@ -87,7 +133,7 @@ export function prism(node, params) {
   function onIntersect(events) {
     events.forEach((e) => {
       if (e.isIntersecting) {
-        highlightCode(e.target, options.componentsUrl);
+        highlightCode(e.target);
       }
     });
   }
@@ -104,7 +150,6 @@ export function prism(node, params) {
       observer.observe(codeblock);
     });
   });
-
 
   return {
     destroy() {

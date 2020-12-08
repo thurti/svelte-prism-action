@@ -70,7 +70,13 @@ You can also change the IntersectionObserver options. For more information on wh
 ```
 
 ## Changelog
-### 0.1.0 (2020-12-04)
+### 1.0.2 (2020-12-08)
+- Fix: loading languages with dependencies (eg. markdown) leads to error
+
+### 1.0.1
+- added .npmignore
+
+### 1.0.0 (2020-12-04)
 - initial release
 
 ## License
