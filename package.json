@@ -1,11 +1,11 @@
 {
   "name": "svelte-prism-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Svelte action for lazy render code blocks with prism.js.",
   "main": "src/index.js",
   "scripts": {
     "dev": "rollup -c -w",
-    "build-example": "rollup -c",
+    "build:example": "rollup -c",
     "start": "sirv public",
     "test": "./node_modules/.bin/cypress run",
     "cypress:open": "./node_modules/.bin/cypress open"
