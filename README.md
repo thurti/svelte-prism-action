@@ -70,6 +70,9 @@ You can also change the IntersectionObserver options. For more information on wh
 ```
 
 ## Changelog
+### 1.0.4 (2020-12-08)
+- Fix: error if language dependency has dependency on its own
+
 ### 1.0.3 (2020-12-08)
 - Fix: error if markdown additional languages is null
 
