@@ -98,8 +98,14 @@ That's fancy, huh?
 \`\`\`js
   console.log("I can write code inside code.");
 \`\`\`
+
+
+\`\`\`css
+  #test{
+    background: green;
+  }
+\`\`\`
 `}
     </code>
   </pre>
-
 </main>

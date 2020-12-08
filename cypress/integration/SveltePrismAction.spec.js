@@ -6,14 +6,6 @@ describe('svelte-prism-action', () => {
     cy.viewport(1000, 600);
   });
 
-  it('loads language file from cdn', () => {
-    cy.intercept(`${defaults.componentsUrl}/*`).as('loadLang');
-
-    cy.visit('/');
-    cy.wait('@loadLang')
-      .its('request.url').should('include', 'prism-bash');
-  });
-
   it('it highlights inline code', () => {
     cy.visit('/')
       .get('#test_inline')
@@ -44,4 +36,17 @@ describe('svelte-prism-action', () => {
       .should('have.class', 'language-markdown')
       .should('have.attr', 'data-is-highlighted')
   });
+
+  it("include languages inside markdown", () => {
+    cy.intercept('GET', `${defaults.componentsUrl}/*`).as('loadLang');
+
+    cy.visit('/')
+      .get('#test_markdown')
+      .scrollIntoView();
+
+    cy.waitFor('@loadLang');
+
+    cy.get('#test_markdown')
+      .should('contain.html', 'language-css');
+  })
 });

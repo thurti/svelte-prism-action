@@ -41,11 +41,11 @@ export function prism(node, params) {
     //abort if already highlighted
     if (target.dataset.isHighlighted) return;
 
-    const lang = getLanguageFromClass(target);
+    const langs = getLanguagesFromClass(target);
 
-    if (lang) {
-      const languages = getIds(lang); //get languages to load including dependencies
-      await runInSequence(languages, loadLanguageAsync); //load language dependencies in order
+    for (const lang of langs) {
+      const languages = getIds(lang); //get languages including dependencies
+      await runInSequence(languages, loadLanguageAsync); //load languages in order
       Prism.highlightElement(target);
       target.dataset.isHighlighted = true;
     }
@@ -53,13 +53,26 @@ export function prism(node, params) {
 
   /**
    * Returns prism.js language name from class name. (eg. 'language-javascript')
+   * Also includes languages from inside markdown code.
    *
    * @param {DOMElement} item
-   * @returns {(string|boolean)}  Returns language name or false.
+   * @returns {[string]}  Returns language names.
    */
-  function getLanguageFromClass(item) {
-    let lang = item.className.match(/[lang|language]-(\w+)/);
-    return lang ? lang[1] : false;
+  function getLanguagesFromClass(item) {
+    let languages = [];
+    const language = item.className.match(/[lang|language]-(\w+)/)?.[1]; //eg. class="language-css" => css
+
+    if (language) {
+      languages.push(language);
+
+      if (language === 'markdown') { //get languages used inside markdown code block
+        let additional = item.innerHTML.match(/(```)(\w+)/gm);
+        additional = additional.map(item => item.replace('```', ''));
+        languages = [...languages, ...additional];
+      }
+    }
+
+    return languages;
   }
 
   /**

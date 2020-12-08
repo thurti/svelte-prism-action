@@ -71,6 +71,7 @@ You can also change the IntersectionObserver options. For more information on wh
 
 ## Changelog
 ### 1.0.2 (2020-12-08)
+- Add: import languages from markdown code blocks
 - Fix: loading languages with dependencies (eg. markdown) leads to error
 
 ### 1.0.1
