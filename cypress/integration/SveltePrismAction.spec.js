@@ -34,19 +34,20 @@ describe('svelte-prism-action', () => {
       .scrollIntoView()
       .get('#test_markdown')
       .should('have.class', 'language-markdown')
-      .should('have.attr', 'data-is-highlighted')
+      .should('have.attr', 'data-is-highlighted');
   });
 
   it("include languages inside markdown", () => {
-    cy.intercept('GET', `${defaults.componentsUrl}/*`).as('loadLang');
-
     cy.visit('/')
       .get('#test_markdown')
       .scrollIntoView();
 
-    cy.waitFor('@loadLang');
+    cy.get('#test_markdown .language-js > span')
+      .should('exist')
+      .should('have.class', 'token');
 
-    cy.get('#test_markdown')
-      .should('contain.html', 'language-css');
-  })
+    cy.get('#test_markdown .language-css > span')
+      .should('exist')
+      .should('have.class', 'token');
+  });
 });
