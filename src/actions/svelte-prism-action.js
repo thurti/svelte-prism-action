@@ -5,7 +5,7 @@ Prism.manual = true;
 import { tick } from "svelte";
 import Prism from "prismjs/components/prism-core.min";
 import getLoader from "prismjs/dependencies";
-import components from "prismjs/components";
+import {components} from "./components";
 
 export const defaults = {
   root: null,
