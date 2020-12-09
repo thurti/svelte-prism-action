@@ -16,9 +16,9 @@ export const defaults = {
 
 /**
  * Svelte action for lazy render code blocks with prism.js.
- * 
- * @param {DOMELement} node 
- * @param {object} params 
+ *
+ * @param {DOMELement} node
+ * @param {object} params
  * @param {DOMElement} params.root = null
  * @param {string} params.rootMargin = "100px"
  * @param {number} params.threshold = 0
@@ -39,22 +39,18 @@ export function prism(node, params) {
    * @param {string} componentsUrl  URL to prism.js component folder.
    */
   const highlightCode = async function (target) {
-    //abort if already highlighted
-    if (target.dataset.isHighlighted) return;
+    if (!target.dataset.isHighlighted) {
+      const ids = getLanguagesFromClass(target);
 
-    const langs = getLanguagesFromClass(target);
-
-    for (const lang of langs) {
-      const languages = getIds(lang); //get languages including dependencies
-      
-      try {
-        await runInSequence(languages, loadLanguageAsync); //load languages in order
-      } catch (error) {
-        console.warn(error);
+      if (ids.length > 0) {
+        try {
+          await loadLanguageAsync(ids);
+          Prism.highlightElement(target);
+          target.dataset.isHighlighted = true;
+        } catch (error) {
+          console.warn(error);
+        }
       }
-
-      Prism.highlightElement(target);
-      target.dataset.isHighlighted = true;
     }
   };
 
@@ -71,56 +67,40 @@ export function prism(node, params) {
 
     if (language) {
       languages.push(language);
+    }
 
-      if (language === 'markdown') { //get languages used inside markdown code blocks
-        let additional = item.innerHTML.match(/(```)(\w+)/gm);
-        additional = additional?.map(item => item.replace('```', '')) || [];
-        languages = [...languages, ...additional];
-      }
+    if (language === "markdown") {
+      //get languages used inside markdown code blocks
+      let additional = item.innerHTML.match(/(```)(\w+)/gm);
+      additional = additional?.map((item) => item.replace("```", "")) || [];
+      languages = [...languages, ...additional];
     }
 
     return languages;
   }
 
   /**
-   * Returns array with language ids including dependency languages.
-   * @param {string} lang
-   * @return {array}
-   */
-  function getIds(lang) {
-    const loader = getLoader(components, [lang]);
-    return loader.getIds();
-  }
-
-  /**
-   * Callback task to run in sequence.
+   * Async load prism.js language files.
    *
-   * @callback asyncCallback
-   * @param {*} param
+   * @param {[string]} language ids
+   * @returns {Promise}
    */
-
-  /**
-   * Hax0r way of running async tasks in sequence.
-   * sequence is array with parameters for the callback function.
-   * @see https://jrsinclair.com/articles/2019/how-to-run-async-js-in-parallel-or-sequential/
-   *
-   * @param {array} sequence
-   * @param {asyncCallback} callback
-   */
-  async function runInSequence(sequence, callback) {
-    const starterPromise = Promise.resolve(null);
-    await sequence.reduce(
-      (p, param) => p.then(() => callback(param)),
-      starterPromise
+  function loadLanguageAsync(ids) {
+    const loader = getLoader(components, ids);
+    const promise = loader.load(
+      (id) => import(`${options.componentsUrl}/prism-${id}.min.js`),
+      {
+        series: async (before, after) => {
+          await before;
+          await after();
+        },
+        parallel: async (values) => {
+          await Promise.all(values);
+        },
+      }
     );
-  }
 
-  /**
-   * Async load prism.js language file.
-   * @param {string} lang 
-   */
-  function loadLanguageAsync(lang) {
-    return import(`${options.componentsUrl}/prism-${lang}.min.js`);
+    return promise;
   }
 
   /**
@@ -143,7 +123,7 @@ export function prism(node, params) {
     //add observer to code blocks
     const codeblocks = node.querySelectorAll("code");
     observer = new IntersectionObserver(onIntersect, { ...options });
-  
+
     [...codeblocks].forEach((codeblock) => {
       observer.observe(codeblock);
     });
@@ -152,6 +132,6 @@ export function prism(node, params) {
   return {
     destroy() {
       observer.disconnect();
-    }
+    },
   };
 }
