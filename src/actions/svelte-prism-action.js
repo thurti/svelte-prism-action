@@ -1,6 +1,8 @@
 //set prism to manual mode
-window.Prism = window.Prism || {};
-Prism.manual = true;
+if (typeof window !== "undefined") {
+  window.Prism = window.Prism || {};
+  Prism.manual = true;
+}
 
 import { tick } from "svelte";
 import Prism from "prismjs/components/prism-core.min";
