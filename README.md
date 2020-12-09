@@ -70,6 +70,10 @@ You can also change the IntersectionObserver options. For more information on wh
 ```
 
 ## Changelog
+### 1.0.5 (2020-12-09)
+- updated dev dependencies
+- replaced custom language loader with prism.js builtin loader
+
 ### 1.0.4 (2020-12-08)
 - Fix: error if language dependency has dependency on its own
 
