@@ -7,13 +7,14 @@
   <h1>svelte-prism-action</h1>
   <p><a href="https://svelte.dev">Svelte</a> action for lazy loading <a href="https://prismjs.com">Prism.js</a> code highlighting.</p>
 
+  <p><a href="https://github.com/thurti/svelte-prism-action">Code on GitHub</a></p>
+
   <h2>Install</h2>
 
-  <p>Install from npm.</p>
   <code id="test_inline" class="lang-bash">$ npm install svelte-prism-action</code>
 
   <p>
-    Include a Prism.js theme into the <code lang="html">&lt;head&gt;</code> section of your <code class="lang-html">index.html</code>.
+    Include a Prism.js CSS theme in your svelte component or use the <code lang="html">&lt;head&gt;</code> section of your <code class="lang-html">index.html</code>.
   </p>
   <pre><code id="test_block" class="lang-html">{`<link href="https://unpkg.com/prismjs@1.22.0/themes/prism.css" rel="stylesheet" />`}</code></pre>
 
