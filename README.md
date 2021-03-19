@@ -72,6 +72,9 @@ You can also change the IntersectionObserver options. For more information on wh
 ```
 
 ## Changelog
+### 1.0.6 (2021-03-19)
+- Updated dependencies
+
 ### 1.0.5 (2020-12-09)
 - Fix: window not defined error when included in SSR context
 - Add: use custom build `components.js` to reduce package file size
