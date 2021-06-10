@@ -72,6 +72,9 @@ You can also change the IntersectionObserver options. For more information on wh
 ```
 
 ## Changelog
+### 1.0.7 (2021-06-10)
+- Fix #1: SvelteKit support. Fixed vite compile errors and added `/* @vite-ignore */` to dynamic `import()`.
+
 ### 1.0.6 (2021-03-19)
 - Updated dependencies
 
