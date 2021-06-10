@@ -1,4 +1,4 @@
-//set prism to manual mode
+// set prism to manual mode
 if (typeof window !== "undefined") {
   window.Prism = window.Prism || {};
   Prism.manual = true;
@@ -7,7 +7,7 @@ if (typeof window !== "undefined") {
 import { tick } from "svelte";
 import Prism from "prismjs/components/prism-core.min";
 import getLoader from "prismjs/dependencies";
-import {components} from "./components";
+import { components } from "./components";
 
 export const defaults = {
   root: null,
@@ -65,7 +65,8 @@ export function prism(node, params) {
    */
   function getLanguagesFromClass(item) {
     let languages = [];
-    const language = item.className.match(/[lang|language]-(\w+)/)?.[1]; //eg. class="language-css" => css
+    const matches = item.className.match(/[lang|language]-(\w+)/);
+    const language = matches ? matches[1] : false; //eg. class="language-css" => css
 
     if (language) {
       languages.push(language);
@@ -74,7 +75,9 @@ export function prism(node, params) {
     if (language === "markdown") {
       //get languages used inside markdown code blocks
       let additional = item.innerHTML.match(/(```)(\w+)/gm);
-      additional = additional?.map((item) => item.replace("```", "")) || [];
+      additional = additional
+        ? additional.map((item) => item.replace("```", ""))
+        : [];
       languages = [...languages, ...additional];
     }
 
@@ -90,7 +93,10 @@ export function prism(node, params) {
   function loadLanguageAsync(ids) {
     const loader = getLoader(components, ids);
     const promise = loader.load(
-      (id) => import(`${options.componentsUrl}/prism-${id}.min.js`),
+      (id) =>
+        import(
+          /* @vite-ignore */ `${options.componentsUrl}/prism-${id}.min.js`
+        ),
       {
         series: async (before, after) => {
           await before;
