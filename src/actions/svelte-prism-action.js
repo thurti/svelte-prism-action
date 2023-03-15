@@ -1,7 +1,7 @@
 // set prism to manual mode
 if (typeof window !== "undefined") {
   window.Prism = window.Prism || {};
-  Prism.manual = true;
+  window.Prism.manual = true;
 }
 
 import { tick } from "svelte";
