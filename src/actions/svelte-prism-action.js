@@ -15,7 +15,7 @@ export const defaults = {
   rootMargin: "100px",
   threshold: 0,
   componentsUrl: "https://unpkg.com/prismjs@1.22.0/components",
-  componentsUrls: {},
+  thirdPartyUrls: {},
 };
 
 /**
@@ -27,6 +27,7 @@ export const defaults = {
  * @param {string} params.rootMargin = "100px"
  * @param {number} params.threshold = 0
  * @param {string} params.componentsUrl = "https://unpkg.com/prismjs@1.22.0/components"
+ * @param {string} params.thirdPartyUrls = {}
  */
 export function prism(node, params) {
   //merge params with defaults
@@ -98,8 +99,8 @@ export function prism(node, params) {
       (id) => {
         if (!Object.keys(window.Prism.languages).includes(id)) {
           let url = "";
-          if (Object.keys(options.componentsUrls).includes(id)) {
-            url = options.componentsUrls[id];
+          if (Object.keys(options.thirdPartyUrls).includes(id)) {
+            url = options.thirdPartyUrls[id];
           } else {
             url = `${options.componentsUrl}/prism-${id}.min.js`;
           }

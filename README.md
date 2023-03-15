@@ -53,7 +53,9 @@ For available language tags see https://prismjs.com/#supported-languages .
   </pre>
 
   <!-- use inline -->
-  <code class="lang-javascript">{`import {prism} from "svelte-prism-action";`}</code>
+  <code class="lang-javascript"
+    >{`import {prism} from "svelte-prism-action";`}</code
+  >
 </main>
 ```
 
@@ -61,7 +63,7 @@ For available language tags see https://prismjs.com/#supported-languages .
 
 You can use `componentsUrl` to set the URL from where to import the Prism.js language files. By default it uses [unpkg cdn](https://unpkg.com), but you can use a local resource instead.
 
-To lazy load **third party language** files (eg. `prism-svelte`) or define a different file per language you can use `componentsUrls` object with language `id` as key and the URL as the value.
+To lazy load **third party language** files (eg. `prism-svelte`) or define a different file per language you can use `thirdPartyUrls` object with language `id` as key and the URL as the value.
 
 You can also change the IntersectionObserver options. For more information on what they do see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Interfaces .
 
@@ -71,7 +73,7 @@ You can also change the IntersectionObserver options. For more information on wh
   rootMargin: "100px",
   threshold: 0,
   componentsUrl: "https://unpkg.com/prismjs@1.22.0/components",
-  componentsUrls: {
+  thirdPartyUrls: {
     svelte: "https://cdn.jsdelivr.net/npm/prism-svelte@0.5.0/index.js"
   }
 }}>

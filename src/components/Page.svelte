@@ -2,7 +2,7 @@
   import {prism} from './../actions/svelte-prism-action';
 </script>
 
-<main use:prism={{componentsUrls: {svelte: "https://cdn.jsdelivr.net/npm/prism-svelte@0.5.0/index.js"}}}>
+<main use:prism={{thirdPartyUrls: {svelte: "https://cdn.jsdelivr.net/npm/prism-svelte@0.5.0/index.js"}}}>
 
   <h1>svelte-prism-action</h1>
   <p><a href="https://svelte.dev">Svelte</a> action for lazy loading <a href="https://prismjs.com">Prism.js</a> code highlighting.</p>
@@ -65,7 +65,7 @@
   <h2>Options</h2>
   <p>You can use <code class="lang-js">componentsUrl</code> to set the URL from where to import the Prism.js language files. By default it uses <a href="https://unpkg.com/">unpkg cdn</a>, but you can use a local resource instead.</p>
 
-  <p>To lazy load <b>third party language</b> files (eg. <code  class="lang-js">prism-svelte</code>) or define a different file per language you can use <code  class="lang-js">componentsUrls</code> object with language id as key and the URL as the value.</p>
+  <p>To lazy load <b>third party language</b> files (eg. <code  class="lang-js">prism-svelte</code>) or define a different file per language you can use <code  class="lang-js">thirdPartyUrls</code> object with language id as key and the URL as the value.</p>
 
   <p>You can also change the IntersectionObserver options. For more information on what they do see <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Interfaces">https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Interfaces</a> .</p>
 
@@ -76,7 +76,7 @@
   rootMargin: "100px",
   threshold: 0,
   componentsUrl: "https://unpkg.com/prismjs@1.22.0/components",
-  componentsUrls: {
+  thirdPartyUrls: {
     svelte: "https://cdn.jsdelivr.net/npm/prism-svelte@0.5.0/index.js"
   }
 }}> 
