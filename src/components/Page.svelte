@@ -2,7 +2,7 @@
   import {prism} from './../actions/svelte-prism-action';
 </script>
 
-<main use:prism>
+<main use:prism={{componentsUrls: {svelte: "https://cdn.jsdelivr.net/npm/prism-svelte@0.5.0/index.js"}}}>
 
   <h1>svelte-prism-action</h1>
   <p><a href="https://svelte.dev">Svelte</a> action for lazy loading <a href="https://prismjs.com">Prism.js</a> code highlighting.</p>
@@ -26,7 +26,7 @@
 
   <p><b>HINT</b> If you are writing your codeblocks directly into a svelte component you need to <b>escape special characters</b> (eg. curley brackets). Another way is to wrap the code inside <code>{`\{\`\`\}`}</code>.</p>
 
-  <pre><code class="lang-html">{`
+  <pre><code id="test_svelte" class="lang-svelte">{`
 <script>
   import {prism} from "svelte-prism-action";
 </script>

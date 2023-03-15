@@ -5,7 +5,8 @@ if (typeof window !== "undefined") {
 }
 
 import { tick } from "svelte";
-import Prism from "prismjs/components/prism-core.min";
+import Prism from "prismjs/components/prism-core";
+import "prismjs/components/prism-markup";
 import getLoader from "prismjs/dependencies";
 import { components } from "./components";
 
@@ -14,6 +15,7 @@ export const defaults = {
   rootMargin: "100px",
   threshold: 0,
   componentsUrl: "https://unpkg.com/prismjs@1.22.0/components",
+  componentsUrls: {},
 };
 
 /**
@@ -93,10 +95,20 @@ export function prism(node, params) {
   function loadLanguageAsync(ids) {
     const loader = getLoader(components, ids);
     const promise = loader.load(
-      (id) =>
-        import(
-          /* @vite-ignore */ `${options.componentsUrl}/prism-${id}.min.js`
-        ),
+      (id) => {
+        if (!Object.keys(window.Prism.languages).includes(id)) {
+          let url = "";
+          if (Object.keys(options.componentsUrls).includes(id)) {
+            url = options.componentsUrls[id];
+          } else {
+            url = `${options.componentsUrl}/prism-${id}.min.js`;
+          }
+
+          return import(/* @vite-ignore */ `${url}`).catch((error) => {
+            console.warn(error);
+          });
+        }
+      },
       {
         series: async (before, after) => {
           await before;
