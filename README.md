@@ -53,9 +53,7 @@ For available language tags see https://prismjs.com/#supported-languages .
   </pre>
 
   <!-- use inline -->
-  <code class="lang-javascript"
-    >{`import {prism} from "svelte-prism-action";`}</code
-  >
+  <code class="lang-javascript">{`import {prism} from "svelte-prism-action";`}</code>
 </main>
 ```
 
@@ -85,8 +83,8 @@ You can also change the IntersectionObserver options. For more information on wh
 
 ### 1.1.0 (2023-03-15)
 
+- Add: support for third party language files
 - Updated dependencies
-- add support for third party language files
 
 ### 1.0.7 (2021-06-10)
 
