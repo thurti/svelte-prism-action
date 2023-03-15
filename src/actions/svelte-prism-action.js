@@ -6,7 +6,6 @@ if (typeof window !== "undefined") {
 
 import { tick } from "svelte";
 import Prism from "prismjs/components/prism-core";
-import "prismjs/components/prism-markup";
 import getLoader from "prismjs/dependencies";
 import { components } from "./components";
 
@@ -136,6 +135,9 @@ export function prism(node, params) {
       }
     });
   }
+
+  //load markup component, is needed for all languages
+  import(/* @vite-ignore */ "prismjs/components/prism-markup");
 
   //wait for onMount on parent
   let observer;

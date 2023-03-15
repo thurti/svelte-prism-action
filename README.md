@@ -83,6 +83,10 @@ You can also change the IntersectionObserver options. For more information on wh
 
 ## Changelog
 
+### 1.1.1 (2023-03-15)
+
+- Fix: SvelteKit error while loading prism-markup.js
+
 ### 1.1.0 (2023-03-15)
 
 - Add: support for third party language files
