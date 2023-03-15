@@ -1,11 +1,12 @@
 // set prism to manual mode
 if (typeof window !== "undefined") {
   window.Prism = window.Prism || {};
-  Prism.manual = true;
+  window.Prism.manual = true;
 }
 
 import { tick } from "svelte";
-import Prism from "prismjs/components/prism-core.min";
+import Prism from "prismjs/components/prism-core";
+import "prismjs/components/prism-markup";
 import getLoader from "prismjs/dependencies";
 import { components } from "./components";
 
@@ -14,6 +15,7 @@ export const defaults = {
   rootMargin: "100px",
   threshold: 0,
   componentsUrl: "https://unpkg.com/prismjs@1.22.0/components",
+  thirdPartyUrls: {},
 };
 
 /**
@@ -25,6 +27,7 @@ export const defaults = {
  * @param {string} params.rootMargin = "100px"
  * @param {number} params.threshold = 0
  * @param {string} params.componentsUrl = "https://unpkg.com/prismjs@1.22.0/components"
+ * @param {string} params.thirdPartyUrls = {}
  */
 export function prism(node, params) {
   //merge params with defaults
@@ -93,10 +96,20 @@ export function prism(node, params) {
   function loadLanguageAsync(ids) {
     const loader = getLoader(components, ids);
     const promise = loader.load(
-      (id) =>
-        import(
-          /* @vite-ignore */ `${options.componentsUrl}/prism-${id}.min.js`
-        ),
+      (id) => {
+        if (!Object.keys(window.Prism.languages).includes(id)) {
+          let url = "";
+          if (Object.keys(options.thirdPartyUrls).includes(id)) {
+            url = options.thirdPartyUrls[id];
+          } else {
+            url = `${options.componentsUrl}/prism-${id}.min.js`;
+          }
+
+          return import(/* @vite-ignore */ `${url}`).catch((error) => {
+            console.warn(error);
+          });
+        }
+      },
       {
         series: async (before, after) => {
           await before;
