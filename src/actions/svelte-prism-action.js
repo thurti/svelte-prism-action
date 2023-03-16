@@ -136,13 +136,13 @@ export function prism(node, params) {
     });
   }
 
-  //load markup component, is needed for all languages
-  import(/* @vite-ignore */ "prismjs/components/prism-markup");
-
   //wait for onMount on parent
   let observer;
 
-  tick().then(() => {
+  tick().then(async () => {
+    //load markup component, is needed for all languages
+    await import(/* @vite-ignore */ "prismjs/components/prism-markup");
+
     //add observer to code blocks
     const codeblocks = node.querySelectorAll("code");
     observer = new IntersectionObserver(onIntersect, { ...options });
