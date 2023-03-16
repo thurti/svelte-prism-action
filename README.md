@@ -83,6 +83,10 @@ You can also change the IntersectionObserver options. For more information on wh
 
 ## Changelog
 
+### 1.1.2 (2023-03-16)
+
+- Fix: highlight fails when `prism-markup.js` import not finished
+
 ### 1.1.1 (2023-03-15)
 
 - Fix: SvelteKit error while loading prism-markup.js
