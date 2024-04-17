@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/svelte-prism-action.svg)](https://badge.fury.io/js/svelte-prism-action)
+
 # svelte-prism-action
 
 [Svelte](https://svelte.dev) action for **lazy loading** [Prism.js](https://prismjs.com) code highlighting languages from remote or local path.
@@ -82,6 +84,11 @@ You can also change the IntersectionObserver options. For more information on wh
 ```
 
 ## Changelog
+
+### 1.1.3 (2024-04-17)
+
+- Add: Typescript support (generated types from JSDoc)
+- make svelte a peer dependency and version less restrictive (because should work with svelte version >= 3)
 
 ### 1.1.2 (2023-03-16)
 
