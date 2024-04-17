@@ -20,13 +20,13 @@ export const defaults = {
 /**
  * Svelte action for lazy render code blocks with prism.js.
  *
- * @param {DOMELement} node
- * @param {object} params
- * @param {DOMElement} params.root = null
- * @param {string} params.rootMargin = "100px"
- * @param {number} params.threshold = 0
- * @param {string} params.componentsUrl = "https://unpkg.com/prismjs@1.22.0/components"
- * @param {string} params.thirdPartyUrls = {}
+ * @param {HTMLElement} node
+ * @param {Object} params
+ * @param {HTMLElement} [params.root=null] Root element for IntersectionObserver.
+ * @param {string} [params.rootMargin="100px"] Margin around root element.
+ * @param {number} [params.threshold=0] Threshold for IntersectionObserver.
+ * @param {string} [params.componentsUrl="https://unpkg.com/prismjs@1.22.0/components"] URL to prism.js component folder.
+ * @param {Object} [params.thirdPartyUrls={}] Object with third party language urls, eg. `{svelte: "https://url.to/prism-svelte/index.js"}`.
  */
 export function prism(node, params) {
   //merge params with defaults

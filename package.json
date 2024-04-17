@@ -1,13 +1,15 @@
 {
   "name": "svelte-prism-action",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Svelte action for lazy render code blocks with prism.js.",
   "main": "src/index.js",
+  "module": "src/index.js",
   "scripts": {
     "dev": "rollup -c -w",
-    "build": "npm run build:components && npm run build:example",
+    "build": "npm run build:components && npm run build:example && npm run generate-types",
     "build:components": "node ./src/scripts/buildComponents.js",
     "build:example": "rollup -c",
+    "generate-types": "npx -p typescript tsc src/actions/svelte-prism-action.js --declaration --allowJs --emitDeclarationOnly --declarationMap --outDir src/actions/types",
     "start": "sirv public",
     "test": "./node_modules/.bin/cypress run",
     "cypress:open": "./node_modules/.bin/cypress open"
@@ -24,7 +26,7 @@
     "type": "git",
     "url": "https://github.com/thurti/svelte-prism-action"
   },
-  "homepage": "",
+  "homepage": "https://thurti.github.io/svelte-prism-action/public/",
   "bugs": {
     "url": "https://github.com/thurti/svelte-prism-action/issues"
   },
