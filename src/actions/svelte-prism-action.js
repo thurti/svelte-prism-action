@@ -23,10 +23,10 @@ export const defaults = {
  * @param {DOMELement} node
  * @param {object} params
  * @param {DOMElement} params.root = null
- * @param {string} params.rootMargin = "100px"
- * @param {number} params.threshold = 0
- * @param {string} params.componentsUrl = "https://unpkg.com/prismjs@1.22.0/components"
- * @param {string} params.thirdPartyUrls = {}
+ * @param {string} params.rootMargin = "100px"
+ * @param {number} params.threshold = 0
+ * @param {string} params.componentsUrl = "https://unpkg.com/prismjs@1.22.0/components"
+ * @param {string} params.thirdPartyUrls = {}
  */
 export function prism(node, params) {
   //merge params with defaults
