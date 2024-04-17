@@ -40,7 +40,9 @@
     "sirv-cli": "^1.0.14"
   },
   "dependencies": {
-    "prismjs": "^1.29.0",
-    "svelte": "^3.x"
+    "prismjs": "^1.29.0"
+  },
+  "peerDependencies": {
+    "svelte": ">=3"
   }
 }
