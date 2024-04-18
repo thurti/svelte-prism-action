@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/svelte-prism-action.svg)](https://badge.fury.io/js/svelte-prism-action)
+[![NPM Version](https://img.shields.io/npm/v/svelte-prism-action?style=flat&color=green)](https://www.npmjs.com/package/svelte-prism-action)
 
 # svelte-prism-action
 
